@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { TopNav } from "./_components/topnav";
 import { cn } from "~/lib/utils";
+import Link from "next/link";
 import {
   Card,
   CardDescription,
@@ -134,7 +135,27 @@ export default function Page() {
               ))}
             </div>
           </section>
-
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+  {filteredMovies.map((movie, idx) => (
+    <Link key={idx} href={`/movie/${encodeURIComponent(movie.title)}`}>
+      <Card className="bg-gray-900/70 border border-gray-800 rounded-lg overflow-hidden hover:shadow-lg hover:scale-105 transition-transform cursor-pointer">
+        <div className="relative w-full h-64">
+          <Image
+            src={movie.img}
+            alt={movie.title}
+            fill
+            className="object-cover"
+          />
+        </div>
+        <CardHeader className="p-3">
+          <CardTitle className="text-sm truncate text-white">
+            {movie.title}
+          </CardTitle>
+        </CardHeader>
+      </Card>
+    </Link>
+  ))}
+</div>
           {/* 🔥 Featured Movies */}
           <section>
             <h2 className="text-2xl font-bold flex items-center gap-2">
@@ -182,7 +203,7 @@ export default function Page() {
             <h2 className="text-2xl font-bold">Latest Movies</h2>
             <Separator className="my-3 bg-red-800" />
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
-              {[
+              {[ 
                 { title: "The Batman", video: "https://www.youtube.com/embed/mqqft2x_Aa4" },
                 { title: "Doctor Strange 2", video: "https://www.youtube.com/embed/aWzlQ2N6qqg" },
                 { title: "Avengers: Endgame", video: "https://www.youtube.com/embed/TcMBFSGVi1c" },
@@ -219,11 +240,11 @@ export default function Page() {
         © {new Date().getFullYear()} MovieHub. All rights reserved.
       </footer>
 
-      {/* 🎬 Watch Now Modal */}
+      {/* 🎬 Watch Now Modal (Wider Version) */}
       <Dialog open={!!selectedMovie} onOpenChange={() => setSelectedMovie(null)}>
-        <DialogContent className="max-w-3xl bg-gray-950 border border-gray-800">
+        <DialogContent className="max-w-5xl bg-gray-950 border border-gray-800">
           <DialogHeader>
-            <DialogTitle className="text-xl text-white">
+            <DialogTitle className="text-2xl font-semibold text-white text-center">
               {selectedMovie?.title}
             </DialogTitle>
           </DialogHeader>
