@@ -1,5 +1,11 @@
 "use client";
 
+export default function Home() {
+  console.log("Public API Key:", process.env.NEXT_PUBLIC_API_KEY);
+  return <h1>Movie Hub</h1>;
+}
+
+
 import { useState } from "react";
 import Image from "next/image";
 import { TopNav } from "./_components/topnav";
